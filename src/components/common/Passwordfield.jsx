@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function OutlinedInputAdornments({onChangePass}) {
+export default function OutlinedInputAdornments({onChangePass, onChangeError}) {
   const classes = useStyles();
   const [showPassword, setValues] = React.useState(false);
 
-  const handleClickShowPassword = () => {
+  const handleClickShowPassword = () => {  console.log(onChangeError)
     setValues(!showPassword);
   };
 
@@ -32,6 +32,7 @@ export default function OutlinedInputAdornments({onChangePass}) {
       <TextField
         className={clsx(classes.margin, classes.textField)}
         variant="outlined"
+        error={onChangeError}
         type={showPassword ? 'text' : 'password'}
         label="Password"
         onChange={onChangePass}

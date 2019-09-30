@@ -35,7 +35,7 @@ export default function Home(props){
 
 
 useEffect(() =>{
-  console.log(props.history) 
+ // console.log(props.history) 
   if(userAuthentication.loggedin){
            
     database.collection('personalDetails').get()

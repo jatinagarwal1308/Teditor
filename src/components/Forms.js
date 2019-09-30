@@ -41,7 +41,9 @@ const CustomizedInputs = (previousPath) => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(new Date())
   const [User,setUser] = React.useState(null)
+  const [UserError,setUserError] = React.useState(false)
   const [Pass,setPass] = React.useState(null)
+  const [PassError,setPassError] = React.useState(false)
   const [Fname,setFname] = React.useState(null)
   const [Lname,setLname] = React.useState(null)
   const [gotoHome,setgotoHome] = React.useState(false)
@@ -53,7 +55,28 @@ function handleDateChange(date) {
 }
 
 function getUser(event) {
-  setUser(event.target.value)
+  
+  let val = event.target.value
+  setUserError(false)   
+
+  if(previousPath.match === '/createaccount'){
+    database.collection('personalDetails').get().then(snapshot => {
+      if(!snapshot.empty){  
+        snapshot.forEach(doc => {
+          if(doc.data().Username === val){
+            setUserError(true)                    
+          }
+        })
+        if(!UserError){
+          setUser(val)
+        }
+      }
+    })
+  }   
+  
+  else{
+    setUser(val)
+  }
 }
 
  const getPass = (event) => {
@@ -69,6 +92,7 @@ function getLname(event) {
 }
 
 function handlePushData() {
+  
   database.collection('loginDetails'). doc(User). set({ Password: Pass })
   database.collection('personalDetails')
   .add({ FirstName   : Fname,
@@ -87,13 +111,8 @@ function handlecheckData(){
 
   database.collection('loginDetails').get()
   .then(snapshot => {
-    if (snapshot.empty) {
-      console.log('No matching documents.');
-      return;
-    }
 
-    else
-    {
+    if (!snapshot.empty) {
       snapshot.forEach(doc => {
         if(doc.id === User)
         { 
@@ -103,24 +122,16 @@ function handlecheckData(){
             setgotoHome(true)
           }
           else
-          {
+          {  setPassError(true)
             console.log("Incorrect Password")
           }
-        }                   
-      });
+        }
+      })
+      setUserError(true)
+    
       return;
     }        
   })
-}
-
-function checkLoginDiasbility() {
-  console.log(User,Pass)
-  if(User === null || Pass === null){
-    return false
-  }
-  else{
-    return false
-  }
 }
 
 return (
@@ -134,6 +145,7 @@ return (
             className={classes.margin} 
             variant="outlined" 
             label="Username"
+            error={UserError}
             onChange={getUser} 
             InputProps={{
               endAdornment: (
@@ -143,11 +155,11 @@ return (
               ),
             }}
             /><br/>
-            <PasswordField onChangePass={getPass}/>
+            <PasswordField onChangePass={getPass} onChangeError={PassError} />
           </form>
 
           <div className={classes.button}>        
-            <Button variant="outlined" onClick={handlecheckData} className={classes.buttonset}>
+            <Button variant="outlined" onClick={handlecheckData} disabled={!User || !Pass} className={classes.buttonset}>
               Login
             </Button>
 
@@ -163,7 +175,8 @@ return (
           <form autoComplete="on=">
             <TextField className={classes.margin} variant="outlined" label="FirstName" onChange={getFname} />
             <TextField className={classes.margin} variant="outlined" label="LastName" onChange={getLname} /><br/>
-            <TextField 
+            <TextField
+            error={UserError} 
             className={classes.margin} 
             variant="outlined" 
             label="Username" 
@@ -195,7 +208,7 @@ return (
               </Grid>
          </MuiPickersUtilsProvider>
           <div className={classes.button}>
-            <Button variant="outlined" onClick={handlePushData} className={classes.buttonset}>
+            <Button variant="outlined" onClick={handlePushData} disabled={!User || !Pass ||!Fname ||!Lname ||UserError } className={classes.buttonset}>
               Create account
             </Button>
         
