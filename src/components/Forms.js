@@ -80,6 +80,7 @@ function getUser(event) {
 }
 
  const getPass = (event) => {
+  setPassError(false)
   setPass(event.target.value)
 }
 
@@ -114,16 +115,13 @@ function handlecheckData(){
 
     if (!snapshot.empty) {
       snapshot.forEach(doc => {
-        if(doc.id === User)
-        { 
-          if(doc.data().Password === Pass)
-          {
+        if(doc.id === User){ 
+          if(doc.data().Password === Pass){
             togglestate(User)
             setgotoHome(true)
           }
-          else
-          {  setPassError(true)
-            console.log("Incorrect Password")
+          else{  
+            setPassError(true)
           }
         }
       })
