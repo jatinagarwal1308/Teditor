@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Chubby from './common/chubbyButton'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -157,13 +157,14 @@ return (
           </form>
 
           <div className={classes.button}>        
-            <Button variant="outlined" onClick={handlecheckData} disabled={!User || !Pass} className={classes.buttonset}>
+            <Chubby onClick={handlecheckData} disabled={!User || !Pass} >
               Login
-            </Button>
+            </Chubby>
 
-            <Button variant="outlined" href="/createaccount" className={classes.buttonset}>
+            <Chubby href="/createaccount" >
               Create an account
-            </Button>
+            </Chubby>
+          
           </div>
 
           { gotoHome ? <Redirect to='/' /> :null }
@@ -206,13 +207,13 @@ return (
               </Grid>
          </MuiPickersUtilsProvider>
           <div className={classes.button}>
-            <Button variant="outlined" onClick={handlePushData} disabled={!User || !Pass ||!Fname ||!Lname ||UserError } className={classes.buttonset}>
+            <Chubby onClick={handlePushData} disabled={!User || !Pass ||!Fname ||!Lname ||UserError } >
               Create account
-            </Button>
+            </Chubby>
         
-            <Button variant="outlined"  href="/login" className={classes.buttonset}>
+            <Chubby href="/login" >
               Already a user
-            </Button>
+            </Chubby>
           </div>
             
             { gotoLogin ? <Redirect to='/login' /> : null }

@@ -2,13 +2,14 @@ import React , { Fragment, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {database} from '../containers/fire'
 import Navbar from './common/navbar'
-import CompilerBar from './common/compilerBar'
+import CompilerSet from './common/compolerTab/CompilerSet'
 import brace from 'brace';
 import 'brace/theme/monokai';
 import 'brace/mode/javascript';
 import 'brace/mode/c_cpp';
 import AceEditor from 'react-ace';
 import { Loginstate } from '../Provider'
+//import Button from './common/chubbyButton'
 
 const useStyles = makeStyles(theme => ({
 root : {
@@ -64,7 +65,8 @@ useEffect(() =>{
    }
 
   function getMode(mode) {
-    setMode(mode.toLowerCase())
+    //setMode(mode)
+    console.log(mode)
   }
 
    return(
@@ -75,7 +77,8 @@ useEffect(() =>{
 
     <main className={classes.content}>
     <div className={classes.toolbar} />
-    <CompilerBar/>
+    <CompilerSet sendMode={getMode}/>
+    
       <AceEditor
         className={classes.editor}
         placeholder="Placeholder Text"
