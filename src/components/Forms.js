@@ -6,7 +6,7 @@ import Chubby from './common/chubbyButton'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import {database} from '../containers/fire'
+import {database} from '../container/fire'
 import PasswordField from './common/Passwordfield'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
