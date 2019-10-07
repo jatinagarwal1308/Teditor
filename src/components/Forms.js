@@ -216,7 +216,7 @@ return (
             </Chubby>
           </div>
             
-            { gotoLogin ? <Redirect to='/login' /> : null }
+            { gotoLogin ? <Redirect to={{pathname: '/login', state: true }} /> : null }
       </div>
     }
     </div>

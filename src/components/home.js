@@ -6,6 +6,9 @@ import CompilerSet from './common/compolerTab/CompilerSet'
 import brace from 'brace';
 import 'brace/theme/monokai';
 import 'brace/mode/javascript';
+import 'brace/mode/java';
+import 'brace/mode/ruby';
+import 'brace/mode/python';
 import 'brace/mode/c_cpp';
 import AceEditor from 'react-ace';
 import { Loginstate } from '../Provider'
@@ -39,7 +42,6 @@ export default function Home(props){
 
 
 useEffect(() =>{
- // console.log(props.history) 
   if(userAuthentication.loggedin){
            
     database.collection('personalDetails').get()
@@ -65,8 +67,7 @@ useEffect(() =>{
    }
 
   function getMode(mode) {
-    //setMode(mode)
-    console.log(mode)
+    setMode(mode)
   }
 
    return(
@@ -82,13 +83,13 @@ useEffect(() =>{
       <AceEditor
         className={classes.editor}
         placeholder="Placeholder Text"
-        mode="javascript"
+        mode={Mode}
         theme="monokai"
         name="blah2"
         onChange={onChange}
         fontSize={14}
-        width={600}
-        height={550}
+        width={'600px'}
+        height={'550px'}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}

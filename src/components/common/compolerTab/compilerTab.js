@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Chubby from '../chubbyButton'
   
 const useTabsStyles = makeStyles( theme => ({
   root: {

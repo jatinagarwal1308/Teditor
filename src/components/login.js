@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Navbar from './common/navbar'
 import Typography from '@material-ui/core/Typography';
 import Forms from "./Forms"
+import Response from './common/responseSnackbar'
 
 const useStyles = makeStyles(theme => ({
 
@@ -41,8 +42,7 @@ export default function Login(props) {
   return (
     <div>
       <Navbar match={props.match.path}/>
-
-
+      
       <Paper className={classes.root2}>
   
         <Typography className={classes.typo} variant="h4" component="h3" >
@@ -52,6 +52,9 @@ export default function Login(props) {
         <Forms match={props.match.path} />
 
       </Paper>
+      <div>
+        {props.location.state ? <Response/> : null}
+      </div>
     </div>
   );
 }
