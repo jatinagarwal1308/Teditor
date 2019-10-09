@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Chubby from './common/chubbyButton'
+import Dialogbox from './common/dialogbox'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -42,6 +43,7 @@ const CustomizedInputs = (previousPath) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date())
   const [User,setUser] = React.useState(null)
   const [UserError,setUserError] = React.useState(false)
+  const [opendialogbox,setopendialogbox] = React.useState(false)
   const [Pass,setPass] = React.useState(null)
   const [PassError,setPassError] = React.useState(false)
   const [Fname,setFname] = React.useState(null)
@@ -90,6 +92,10 @@ function getFname(event) {
 
 function getLname(event) {
   setLname(event.target.value)
+}
+
+function openDialogbox() {
+     setopendialogbox(true)
 }
 
 function handlePushData() {
@@ -207,7 +213,7 @@ return (
               </Grid>
          </MuiPickersUtilsProvider>
           <div className={classes.button}>
-            <Chubby onClick={handlePushData} disabled={!User || !Pass ||!Fname ||!Lname ||UserError } >
+            <Chubby onClick={openDialogbox} disabled={!User || !Pass ||!Fname ||!Lname ||UserError } >
               Create account
             </Chubby>
         
@@ -215,7 +221,7 @@ return (
               Already a user
             </Chubby>
           </div>
-            
+            { opendialogbox ? <Dialogbox pass={Pass}/> : null }
             { gotoLogin ? <Redirect to={{pathname: '/login', state: true }} /> : null }
       </div>
     }
